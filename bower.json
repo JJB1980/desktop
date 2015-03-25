@@ -1,0 +1,15 @@
+{
+  "name": "html5",
+  "version": "0.0.0",
+  "authors": [
+    "JJB1980 <john@jjbsw.com>"
+  ],
+  "description": "Demo of UI Development",
+  "main": "index.html",
+  "license": "MIT",
+  "dependencies": {
+    "angular-ui-router": "~0.2.13",
+    "lumx": "~0.3.24",
+    "mdi": "~1.0.8-beta"
+  }
+}

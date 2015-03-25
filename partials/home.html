@@ -1,0 +1,65 @@
+
+
+<div class="tc-white-1" flex-container="row">
+    
+    <div flex-item="3" flex-item-order="1">
+        <div id="weather-container" data-ng-controller="weatherController">
+            <div id="weather-progress"></div>
+            <h1>
+                {{weather.name}} 
+                <span lx-tooltip="{{weather.weather[0].main}}" tooltip-position="bottom" class="mdi mdi-{{weather.icon}}"></span>
+            </h1>
+            <h5>
+                {{date}}
+            </h5>
+            <div id="weather-temp">
+                <span class="mdi mdi-thermometer"></span> 
+                <i>Min</i>: {{weather.main.temp_min}} 
+                <i>Max</i>: {{weather.main.temp_max}} 
+                <i>Current</i>: {{weather.main.temp}}
+            </div>
+            <div id="googleMap" style="width: 250px; height: 250px;"></div>
+        </div>   
+    </div>
+       
+    <div flex-item="6" flex-item-order="2">
+        <div class="p+++ bgc-blue-500">
+            
+        </div>
+    </div>
+    
+    <div flex-item="3" flex-item-order="3">
+        <div id="comments-container" data-ng-controller="commentController">
+            <h4><i>Leave a comment</i></h4>
+            <div class="mt++" flex-container="row" flex-gutter="5">
+                <div flex-item>
+                    <form>
+                        <lx-text-field label="First and last name" fixed-label="true" icon="account">
+                            <input type="text" ng-model="comment.author">
+                        </lx-text-field>
+                        <lx-text-field label="Comment" fixed-label="true" icon="comment-outline">
+                            <input type="text" ng-model="comment.description">
+                        </lx-text-field>
+
+                        <div class="fab">
+                            <button class="fab__primary btn btn--xl btn--red btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top">
+                            <i class="mdi mdi-android"></i>
+                            <i class="mdi mdi-plus"></i>
+                            </button>
+
+                            <div class="fab__actions fab__actions--left">
+                            <button class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top"><i class="mdi mdi-delete"></i></button>
+                            <button class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top"><i class="mdi mdi-package"></i></button>
+                            <button class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top"><i class="mdi mdi-pencil"></i></button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    
+    
+</div>
