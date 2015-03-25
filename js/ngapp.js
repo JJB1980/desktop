@@ -17,17 +17,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
         });
 });
 
-app.controller('homeController', function ($scope, $interval, weatherService) {
+app.controller('homeController', function ($scope) {
 });
 
-app.controller('commentController', function ($scope, store, utils) {
+app.controller('commentController', function ($scope, store, utils, LxNotificationService) {
     
     $scope.errors = {};
     
 //    store.set('comments',null);
     var comments = store.get('comments');
-    console.log(comments);
-//    if (typeof comments === String) {
+
     if (comments) {
         $scope.comments = JSON.parse(comments);
     } else {
@@ -51,6 +50,8 @@ app.controller('commentController', function ($scope, store, utils) {
         $scope.comment.id = $scope.comments.length;
         $scope.comments.unshift($scope.comment);
         store.set('comments', JSON.stringify($scope.comments));
+        $scope.comment = {};
+        LxNotificationService.success("Comment Added.");
     };
     
     $scope.redo = function () {
