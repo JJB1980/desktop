@@ -30,30 +30,40 @@
     
     <div flex-item="3" flex-item-order="3">
         <div id="comments-container" data-ng-controller="commentController">
-            <h4><i>Leave a comment</i></h4>
+            <h5><i>Leave a comment</i></h5>
             <div class="mt++" flex-container="row" flex-gutter="5">
                 <div flex-item>
                     <form>
-                        <lx-text-field label="First and last name" fixed-label="true" icon="account">
-                            <input type="text" ng-model="comment.author">
+                        <lx-text-field error="errors.author" label="First and last name" fixed-label="true" icon="account">
+                            <input data-ng-change="errors.author = false" type="text" ng-model="comment.author">
                         </lx-text-field>
-                        <lx-text-field label="Comment" fixed-label="true" icon="comment-outline">
-                            <input type="text" ng-model="comment.description">
+                        <lx-text-field error="errors.description" label="Comment" fixed-label="true" icon="comment-outline">
+                            <input data-ng-change="errors.description = false" type="text" ng-model="comment.description">
                         </lx-text-field>
+                        
+                        <div class=" center-form">
+                            <div class="fab">
+                                <button class="fab__primary btn btn--xl btn--green btn--fab" lx-ripple lx-tooltip="Actions" tooltip-position="top">
+                                    <i class="mdi mdi-plus"></i>
+                                    <i class="mdi mdi-minus"></i>
+                                </button>
 
-                        <div class="fab">
-                            <button class="fab__primary btn btn--xl btn--red btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top">
-                            <i class="mdi mdi-android"></i>
-                            <i class="mdi mdi-plus"></i>
-                            </button>
-
-                            <div class="fab__actions fab__actions--left">
-                            <button class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top"><i class="mdi mdi-delete"></i></button>
-                            <button class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top"><i class="mdi mdi-package"></i></button>
-                            <button class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Lorem Ipsum" tooltip-position="top"><i class="mdi mdi-pencil"></i></button>
+                                <div class="fab__actions fab__actions--left">
+                                    <button data-ng-click="save()" class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Save" tooltip-position="top">
+                                        <i class="mdi mdi-floppy"></i>
+                                    </button>
+                                    <button data-ng-click="redo()" class="btn btn--l btn--black btn--fab" lx-ripple lx-tooltip="Redo" tooltip-position="top">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
+                        
+                        <div class="comment-container" data-ng-repeat="comment in comments track by $index">
+                            <p><b>"</b><i>{{comment.description}}</i><b>"</b></p>
+                            <span><i>by</i> {{comment.author}}</span>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

@@ -15,11 +15,51 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/home.html",
             controller: "homeController"
         });
-    
-    console.log('app.config');
 });
 
 app.controller('homeController', function ($scope, $interval, weatherService) {
+});
+
+app.controller('commentController', function ($scope, store, utils) {
+    
+    $scope.errors = {};
+    
+//    store.set('comments',null);
+    var comments = store.get('comments');
+    console.log(comments);
+//    if (typeof comments === String) {
+    if (comments) {
+        $scope.comments = JSON.parse(comments);
+    } else {
+        $scope.comments = [
+            { id: 1, author: 'Ned Flanders', description: 'this is a nice app.'},
+            { id: 2, author: 'Homer Simpson', description: 'i like beer.'}
+        ];
+    }
+    
+    $scope.save = function () {
+        $scope.errors = {};
+        if (!utils.ok($scope.comment.author)) {
+            $scope.errors.author = true;
+        }
+        if (!utils.ok($scope.comment.description)) {
+            $scope.errors.description = true;
+        }
+        if ($scope.errors.description || $scope.errors.author) {
+            return;
+        }
+        $scope.comment.id = $scope.comments.length;
+        $scope.comments.unshift($scope.comment);
+        store.set('comments', JSON.stringify($scope.comments));
+    };
+    
+    $scope.redo = function () {
+        $scope.errors = {};
+        $scope.comment = {};
+    };
+    
+    $scope.redo();
+    
 });
 
 app.controller('weatherController', function ($scope, $interval, mapService,
@@ -55,12 +95,16 @@ app.controller('weatherController', function ($scope, $interval, mapService,
             $scope.weather = data.data.list[0];
             $scope.weather.icon = $scope.icons[$scope.weather.weather[0].main] || '';
             mapService.update($scope.weather.coord);
+            $scope.incrementCity();
 //            console.log('weather for: '+$scope.weather.name);
 //            console.log($scope.weather);       
         }, function (data) {
             LxNotificationService.error('Unable to load weather for '+$scope.cities[$scope.currentCity]);
+            $scope.incrementCity();
         });
-        
+    };
+    
+    $scope.incrementCity = function () {
         $scope.currentCity++;
         if ($scope.currentCity > $scope.cities.length - 1) {
             $scope.currentCity = 0;
@@ -85,6 +129,25 @@ app.service('mapService', function () {
         }
     };
     
+});
+
+app.service('utils', function () {
+    return {
+        ok: function (value) {
+            return (value === "" || !value) ? false: true;
+        }
+    };
+});
+
+app.service('store', function () {
+    return {
+        set: function (key,value) {
+            localStorage.setItem(key,value);
+        },
+        get: function (key) {
+            return localStorage.getItem(key);
+        }
+    };
 });
 
 app.factory('weatherService', function ($http, $q, LxProgressService) {

@@ -106,11 +106,31 @@ textarea {
 #weather-container, #comments-container {
     color: black;
     padding: 0.5em;
-};
+}
 
-#googleMap {
-     
-};
+.comment-container {
+    padding-top: 1em !important;
+    width: 100%;
+}
+
+.comment-container > p {
+    font-size: 1.2em;
+}
+
+.comment-container > span {
+    font-size: 0.8em;
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+
+
+
+.center-form {
+    text-align: center !important;
+    width: 100% !important;
+}
+
 
 
 
